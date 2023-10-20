@@ -6,7 +6,8 @@ Overseer.requested_components(::InitializeGame) = (PlayerInfo,)
 function Overseer.update(::InitializeGame, m::AbstractLedger)
     game_ledger = Ledger()
 
-    for t in (ZoneShortcut{UnownedZoneType}, ZoneShortcut{OwnedZoneType})
+    for t in (ZoneShortcut{UnownedZoneType}, ZoneShortcut{OwnedZoneType},
+        ContainingObjectsComponent)
         Overseer.ensure_component!(game_ledger, t)
     end
     
@@ -17,6 +18,8 @@ function Overseer.update(::InitializeGame, m::AbstractLedger)
             PlayerComponent(player_info.player_name,20,false,false))
         shortcut = create_zones_and_shortcuts(OwnedZoneType,player,game_ledger)
         game_ledger[player] = ZoneShortcut(shortcut)
+        game_ledger[shortcut[Library]] = 
+            ContainingObjectsComponent(initialize_list(player_info.decklist))
     end
 
     shortcut = create_zones_and_shortcuts(UnownedZoneType,nothing,game_ledger)
