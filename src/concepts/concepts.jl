@@ -6,5 +6,5 @@ include("zone.jl")
 include("decklist.jl")
 include("gameinfo.jl")
 include("playerinfo.jl")
-
+include("shuffle.jl")
 end
