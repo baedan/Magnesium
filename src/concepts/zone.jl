@@ -49,3 +49,10 @@ end
 @component struct ZoneShortcut{T<:ZoneType}
     zone_shortcut::Dict{T, Entity}
 end
+
+function specify(io::IO, zone::IsZoneComponent{OwnedZoneType}, m::AbstractLedger)
+    specify(io, zone.owner::Entity, m)
+    print(io, "'s $(zone.zone_type)")
+end
+
+specify(io::IO, zone::IsZoneComponent{UnownedZoneType}, m::AbstractLedger) = print(io, "The $(zone.zone_type)")

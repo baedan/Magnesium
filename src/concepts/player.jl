@@ -23,3 +23,5 @@ An `Entity` with an `OwnerComponent` *has* an owner.
 @component struct OwnerComponent
     owner::Entity
 end
+
+specify(io::IO, player_component::PlayerComponent, ::AbstractLedger) = print(io, "Player $(player_component.player_name)")
