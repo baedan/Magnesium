@@ -1,3 +1,5 @@
+export specify
+
 """
     specify(io::IO, e::Entity, m::AbstractLedger)
 
