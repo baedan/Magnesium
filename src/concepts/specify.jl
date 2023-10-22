@@ -1,5 +1,5 @@
 """
-    specify(io::IO, e::Entity, m::AbstractLedger)
+    specify([io::IO = stdout], e::Entity, m::AbstractLedger)
 
 Print a description that specifies `e` to `io`.
 """
@@ -14,5 +14,7 @@ function specify(io::IO, e::Entity, m::AbstractLedger)
         return
     end
 end
+
+specify(e::Entity, m::AbstractLedger) = specify(stdout, e, m)
 
 function specify(::IO, c, ::AbstractLedger) end
