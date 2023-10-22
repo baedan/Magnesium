@@ -10,5 +10,6 @@ Documentation for [Magnesium](https://github.com/baedan/Magnesium.jl).
 ```
 
 ```@autodocs
-Modules = [Magnesium]
+Modules = [Magnesium, Magnesium.Concepts, Magnesium.Systems]
+Order   = [:function, :type]
 ```

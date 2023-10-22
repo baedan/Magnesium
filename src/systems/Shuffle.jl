@@ -35,7 +35,7 @@ function shuffle!(z::ContainingObjectsComponent, shuffle_component::AbstractShuf
 
 shuffle!(z::ContainingObjectsComponent, ::ShuffleDeckComponent) = Random.shuffle!(z.o)
 
-function shuffle!(z::ContainingObjectsComponent, shuffle_component::ShuffleComponent{T<:PileOrientation})
+function shuffle!(z::ContainingObjectsComponent, shuffle_component::ShuffleComponent{T}) where {T<:PileOrientation}
     card_count = length(z.o)
     shuffle_count = shuffle_component.n
     card_count < shuffle_count && @error "Cannot shuffle $shuffle_count cards when there's only $card_count cards in the zone."
