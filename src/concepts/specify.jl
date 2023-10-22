@@ -1,3 +1,8 @@
+"""
+    specify(io::IO, e::Entity, m::AbstractLedger)
+
+Print a description that specifies `e` to `io`.
+"""
 function specify(io::IO, e::Entity, m::AbstractLedger)
     # specify zone
     if m[e] in IsZoneComponent{OwnedZoneType}
