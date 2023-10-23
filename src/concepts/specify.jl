@@ -5,18 +5,22 @@ export specify
 
 Print a description that specifies `e` to `io`.
 """
-function specify(io::IO, e::Entity, m::AbstractLedger)
+function specify(io::IO, e::Overseer.AbstractEntity, m::AbstractLedger)
     # specify zone
-    if m[e] in IsZoneComponent{OwnedZoneType}
+    if e in m[IsZoneComponent{OwnedZoneType}]
         specify(io, m[e][IsZoneComponent{OwnedZoneType}], m)
         return
     end
-    if m[e] in PlayerComponent
+    if e in m[IsZoneComponent{UnownedZoneType}]
+        specify(io, m[e][IsZoneComponent{UnownedZoneType}], m)
+        return
+    end
+    if e in m[PlayerComponent]
         specify(io, m[e][PlayerComponent], m)
         return
     end
 end
 
-specify(e::Entity, m::AbstractLedger) = specify(stdout, e, m)
+specify(e::Overseer.AbstractEntity, m::AbstractLedger) = specify(stdout, e, m)
 
 function specify(::IO, c, ::AbstractLedger) end
