@@ -8,6 +8,7 @@ Overseer = "1ada24be-c16d-4464-9f61-27c2e0f16645"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [compat]
+Overseer = "0.3.2"
 julia = "1.9"
 
 [extras]
