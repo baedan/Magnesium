@@ -24,10 +24,17 @@ end
         return Overseer.update(InitializeGame(), l)
     end
 
-    @testset let h = test_InitializeGame(
-            [PlayerInfo(DeckList(), "Malatesta")])
-        @test h[first(players(h))][PlayerComponent] == PlayerComponent("Malatesta")
-    end
+    h = test_InitializeGame(
+        [PlayerInfo(DeckList(), "Malatesta")])
 
+    @test h[first(players(h))][PlayerComponent] == PlayerComponent("Malatesta")
+    @testset "zone $z" for z in instances(OwnedZoneType)
+        @test h[IsZoneComponent{OwnedZoneType}][zone(h, z, h[first(players(h))])].zone_type == z
+        @test h[IsZoneComponent{OwnedZoneType}][zone(h, z, h[first(players(h))])].owner == first(players(h))
+    end
+    @testset "zone $z" for z in instances(UnownedZoneType)
+        @test h[IsZoneComponent{UnownedZoneType}][zone(h, z)].zone_type == z
+        @test h[IsZoneComponent{UnownedZoneType}][zone(h, z)].owner === nothing
+    end
 end
 
