@@ -6,6 +6,14 @@ using Magnesium.Utilities
 using Test
 using Overseer
 
+function test_InitializeGame(players::AbstractArray{PlayerInfo})
+    l = Ledger()
+    for player in players
+        Entity(l, player)
+    end
+    return Overseer.update(InitializeGame(), l)
+end
+
 @testset "Magnesium.jl" begin
 #=     @testset "Code quality (Aqua.jl)" begin
         Aqua.test_all(Magnesium)
@@ -16,14 +24,6 @@ using Overseer
 end
 
 @testset "Initialize Game" begin
-    function test_InitializeGame(players::AbstractArray{PlayerInfo})
-        l = Ledger()
-        for player in players
-            Entity(l, player)
-        end
-        return Overseer.update(InitializeGame(), l)
-    end
-
     h = test_InitializeGame(
         [PlayerInfo(DeckList(), "Malatesta")])
 
@@ -35,6 +35,21 @@ end
     @testset "zone $z" for z in instances(UnownedZoneType)
         @test h[IsZoneComponent{UnownedZoneType}][zone(h, z)].zone_type == z
         @test h[IsZoneComponent{UnownedZoneType}][zone(h, z)].owner === nothing
+    end
+end
+
+@testset "Display" begin
+    h = test_InitializeGame([PlayerInfo(DeckList(), "Malatesta")])
+    buf = IOBuffer()
+    specify(buf, h[first(players(h))], h)
+    @test String(take!(buf)) == "Player Malatesta"
+    @testset "zone $z" for z in instances(OwnedZoneType)
+        specify(buf, zone(h, z, h[first(players(h))]),h)
+        @test String(take!(buf)) == "Player Malatesta's $z"
+    end
+    @testset "zone $z" for z in instances(UnownedZoneType)
+        specify(buf, zone(h, z),h)
+        @test String(take!(buf)) == "The $z"
     end
 end
 
