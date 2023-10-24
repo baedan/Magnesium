@@ -8,4 +8,6 @@ include("gameinfo.jl")
 include("playerinfo.jl")
 include("shuffle.jl")
 include("specify.jl")
+include("turn.jl")
+
 end
