@@ -1,4 +1,4 @@
-export PlayerComponent, ControllerComponent, OwnerComponent
+export PlayerComponent, ControllerComponent, OwnerComponent, ActivePlayerComponent
 
 """
 An `Entity` with a `PlayerComponent` *is* a player.
@@ -24,6 +24,22 @@ An `Entity` with an `OwnerComponent` *has* an owner.
 """
 @component struct OwnerComponent
     owner::Entity
+end
+
+@component struct ActivePlayerComponent
+    ap::Entity
+end
+
+@component struct PlayOrder
+    order::Vector{Entity}
+end
+
+iterate(po::PlayOrder) = isempty(po.order) ? nothing : (first(po.order), first(po.order))
+function iterate(po::PlayOrder, state::Entity)
+        !in(state, po.order) && throw(ArgumentError("Player is not in the play order."))
+        ind = findfirst(isequal(state), po.order)
+        new_s = length(po.order) == ind ? first(po.order) : po.order[ind+1]
+        return new_s, new_s
 end
 
 """
