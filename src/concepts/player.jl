@@ -1,4 +1,4 @@
-export PlayerComponent, ControllerComponent, OwnerComponent, ActivePlayerComponent
+export PlayerComponent, ControllerComponent, OwnerComponent, ActivePlayerComponent, PlayOrder
 
 """
 An `Entity` with a `PlayerComponent` *is* a player.
