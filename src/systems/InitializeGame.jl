@@ -26,6 +26,10 @@ function Overseer.update(::InitializeGame, m::AbstractLedger)
 
     shortcut = create_zones_and_shortcuts(game_ledger,UnownedZoneType)
     game_ledger[game_info] = ZoneShortcut(shortcut)
+
+    play_order = players(game_ledger)
+    game_ledger[game_info] = PlayOrder(play_order)
+    
     return game_ledger
 end
 
