@@ -10,5 +10,6 @@ include("shuffle.jl")
 include("specify.jl")
 include("turn.jl")
 include("priority.jl")
+include("actions.jl")
 
 end
