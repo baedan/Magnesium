@@ -5,5 +5,6 @@ using Overseer
 include("InitializeGame.jl")
 include("Shuffle.jl")
 include("TurnKeeper.jl")
+include("PriorityKeeper.jl")
 
 end

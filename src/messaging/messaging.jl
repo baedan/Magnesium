@@ -12,5 +12,6 @@ end
 MessagingComponent{T}(payload::T) where {T} = MessagingComponent{T}(payload, nothing)
 
 include("StartTurnStructure.jl")
+include("ReceivePriority.jl")
 
 end
